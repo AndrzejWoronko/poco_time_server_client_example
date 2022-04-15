@@ -64,11 +64,13 @@ public:
         std::cout << "Creating a connection with ["
                   << socketAddr.host().toString()
                   << "] through port [" << socketAddr.port() << "] ...";
-        try {
+        try
+        {
             socket.connect(socketAddr);
             std::cout << "Success!" << std::endl;
         }
-        catch(Poco::Exception err) {
+        catch(Poco::Exception &err)
+        {
             std::cout << std::endl;
             std::cout << "Socket connection error: [" << err.displayText() << "]" << std::endl;
             return false;
@@ -80,7 +82,8 @@ public:
     {
         std::cout << std::endl;
 
-        try {
+        try
+        {
             std::string message;
 
             std::cout << "Enter a message to send to the server: ";
@@ -93,7 +96,8 @@ public:
             }
             else return false;
         }
-        catch(Poco::Exception err) {
+        catch(Poco::Exception &err)
+        {
             std::cout << "Data send error: [" << err.displayText() << "]" << std::endl;
             return false;
         }
@@ -109,7 +113,7 @@ public:
             stream >> message;
             socket.shutdownReceive();
         }
-        catch(Poco::Exception err)
+        catch(Poco::Exception &err)
         {
             s << "Data revice error: [" << err.displayText() << "]" << std::endl;
             message = s.str();
@@ -148,7 +152,7 @@ int main(int argc, char** argv)
     ClientHandler handler(hostname, port);
     if (handler.connected())
        {
-        std::cout << "Time from time_server: " << handler.reciveMessage() << std::endl;
+            std::cout << "Time from time_server: " << handler.reciveMessage() << std::endl;
        }
     return 0;
 }

@@ -187,9 +187,9 @@ protected:
             {
                 ipa = ipa.parse(addr);
             }
-            catch (NetException e)
+            catch (Poco::Exception& exc)
             {
-                std::cout << "Exeption: " << e.displayText() << std::endl;
+                std::cout << "Exeption: " << exc.displayText() << std::endl;
                 return Application::EXIT_CONFIG;
             }
 
