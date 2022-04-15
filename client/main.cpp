@@ -9,6 +9,9 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
+#include <iostream>
+#include <string>
+#include <sstream>
 
 #include "Poco/LocalDateTime.h"
 #include "Poco/DateTime.h"
@@ -21,8 +24,6 @@
 #include "Poco/Net/SocketStream.h"
 #include "Poco/StreamCopier.h"
 #include "Poco/Exception.h"
-#include <iostream>
-#include <sstream>
 
 using Poco::LocalDateTime;
 using Poco::DateTime;
@@ -35,9 +36,6 @@ using Poco::Net::SocketStream;
 using Poco::Net::SocketAddress;
 using Poco::StreamCopier;
 using Poco::Exception;
-
-#include <iostream>
-#include <string>
 
 class ClientHandler {
 
@@ -122,8 +120,29 @@ public:
 
 int main(int argc, char** argv)
 {
+    extern char *optarg;
+    int opt;
     int port = 9901;
     std::string hostname = "127.0.0.1";
+
+    if (argc < 3)
+    {
+        std::cout << "usage: " << argv[0] << ": -h host -p port" << std::endl;
+        return 1;
+    }
+
+    while ((opt = getopt(argc, argv, "h:p:")) != -1)
+    {
+        switch (opt)
+        {
+        case 'h':
+            hostname = std::string(optarg);
+            break;
+        case 'p':
+            port = atoi(optarg);
+            break;
+        }
+    }
 
     // Handle the server-client connection and recive some data
     ClientHandler handler(hostname, port);
