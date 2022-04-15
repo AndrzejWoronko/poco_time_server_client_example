@@ -129,7 +129,7 @@ int main(int argc, char** argv)
     int port = 9901;
     std::string hostname = "127.0.0.1";
 
-    if (argc < 3)
+    if (argc < 4)
     {
         std::cout << "usage: " << argv[0] << ": -h host -p port" << std::endl;
         return 1;
@@ -147,12 +147,18 @@ int main(int argc, char** argv)
             break;
         }
     }
-
-    // Handle the server-client connection and recive some data
-    ClientHandler handler(hostname, port);
-    if (handler.connected())
-       {
-            std::cout << "Time from time_server: " << handler.reciveMessage() << std::endl;
-       }
+    try
+    {
+        // Handle the server-client connection and recive some data
+        ClientHandler handler(hostname, port);
+        if (handler.connected())
+        {
+           std::cout << "Time from time_server: " << handler.reciveMessage() << std::endl;
+        }
+    }
+    catch (Poco::Exception &err)
+    {
+        std::cout << "Program exception: [" << err.displayText() << "]" << std::endl;
+    }
     return 0;
 }
