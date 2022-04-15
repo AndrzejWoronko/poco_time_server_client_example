@@ -217,9 +217,10 @@ private:
     bool _helpRequested;
 };
 
+POCO_SERVER_MAIN(TimeServer)
 
-int main(int argc, char** argv)
-{
-    TimeServer app;
-    return app.run(argc, argv);
-}
+//int main(int argc, char** argv)
+//{
+//    TimeServer app;
+//    return app.run(argc, argv);
+//}
