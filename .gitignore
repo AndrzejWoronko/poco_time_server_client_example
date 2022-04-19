@@ -146,3 +146,4 @@ stage/
 releases/
 build/
 build-debug/
+build-output/
